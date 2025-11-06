@@ -1,0 +1,173 @@
+/* ==== CSS VARIABLES ==== */
+:root {
+  --bg-primary: #f5f5f5;
+  --bg-secondary: #ffffff;
+  --text-primary: #1f2937;
+  --text-secondary: #6b7280;
+  --border-color: #e5e7eb;
+  --header-bg: linear-gradient(135deg, #1e40af, #3b82f6);
+  --footer-bg: #111827;
+  --footer-text: #d1d5db;
+  --blue: #1e40af;
+}
+
+[data-theme="dark"] {
+  --bg-primary: #1f2937;
+  --bg-secondary: #374151;
+  --text-primary: #f9fafb;
+  --text-secondary: #d1d5db;
+  --border-color: #4b5563;
+  --header-bg: linear-gradient(135deg, #1e3a8a, #1d4ed8);
+  --footer-bg: #111827;
+  --footer-text: #9ca3af;
+}
+
+/* ==== GLOBAL ==== */
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: var(--bg-primary) !important;
+  color: var(--text-primary);
+  line-height: 1.6;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* ==== HEADINGS ==== */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--blue);
+  margin: 0 0 0.5rem 0;
+}
+
+/* ==== LAYOUT ==== */
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* ==== HEADER ==== */
+.header {
+  background: var(--header-bg);
+  color: #fff;
+  padding: 2rem 0;
+}
+.header h1 {
+  font-size: 2.5rem;
+  color: #000;
+  margin-bottom: 0.5rem;
+}
+.header p {
+  margin: 0.25rem 0;
+  font-size: 1.1rem;
+}
+.header .buttons {
+  margin-top: 1.25rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+}
+.header .btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 9999px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  font-size: 0.95rem;
+}
+.header .btn-primary {
+  background: #fff;
+  color: #1e40af;
+}
+.header .btn-primary:hover { background: #e5e7eb; }
+.header .btn-outline {
+  border: 2px solid #fff;
+  color: #fff;
+}
+.header .btn-outline:hover {
+  background: #fff;
+  color: #1e40af;
+}
+.header .dark-toggle {
+  background: #fff;
+  color: #1e40af;
+  border: none;
+  cursor: pointer;
+  padding: 0.75rem 1.2rem;
+  border-radius: 9999px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+.header .dark-toggle:hover { background: #e5e7eb; }
+
+/* ==== SKILLS ==== */
+.skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+.skill-icon {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+  transition: background 0.2s;
+}
+.skill-icon:hover { background: var(--border-color); }
+.skill-icon svg { width: 20px; height: 20px; fill: var(--blue); }
+
+/* ==== SECTION ==== */
+.section {
+  padding: 1.5rem 0;
+}
+.section h2 {
+  font-size: 1.75rem;
+  margin-bottom: 0.75rem;
+  border-bottom: 2px solid var(--border-color);
+  padding-bottom: 0.4rem;
+}
+
+/* ==== EXPERIENCE ==== */
+.exp-item {
+  margin-bottom: 1.5rem;
+}
+.exp-item h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.25rem;
+}
+.exp-item .meta {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  margin-bottom: 0.5rem;
+}
+.exp-item ul {
+  margin: 0.5rem 0 0 1.25rem;
+  padding: 0;
+}
+.exp-item li {
+  margin-bottom: 0.35rem;
+}
+.exp-section {
+  background: var(--bg-secondary);
+  padding: 1.5rem 0;
+}
+
+/* ==== FOOTER ==== */
+.footer {
+  background: var(--footer-bg);
+  color: var(--footer-text);
+  text-align: center;
+  padding: 1.5rem 0;
+  font-size: 0.95rem;
+}
+.footer p { margin: 0.25rem 0; }

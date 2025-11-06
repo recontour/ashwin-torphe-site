@@ -10,4 +10,4 @@ User-agent: Twitterbot
 Allow: /
 User-agent: LinkedInBot
 Allow: /
-Sitemap: https://ashwintorpe.com/sitemap.xml
+Sitemap: https://ashwintorphe.com/sitemap.xml

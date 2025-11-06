@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+
+# Allow Facebook/WhatsApp crawler
+User-agent: facebookexternalhit
+Allow: /
+
+# Allow other social crawlers
+User-agent: Twitterbot
+Allow: /
+User-agent: LinkedInBot
+Allow: /
+Sitemap: https://ashwintorpe.com/sitemap.xml

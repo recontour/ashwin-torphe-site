@@ -108,6 +108,9 @@ h1 {
   transition: transform 0.2s ease, background-color 0.2s ease;
   border: 1px solid var(--primary-color);
   text-align: center;
+
+  /* ADDED: Prevents "Download Resume" from splitting into two lines */
+  white-space: nowrap;
 }
 
 .btn:hover {
@@ -128,7 +131,6 @@ h1 {
   color: #0284c7;
   border-color: #f0f9ff;
 }
-
 /* --- Typography in Sections --- */
 h2 {
   font-size: 1.4rem;

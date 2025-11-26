@@ -145,12 +145,17 @@ function App() {
           </div>
 
           <div className="cta-buttons">
+            {/* 1. Email Me -> WHITE */}
             <a href="mailto:ashwin.torphe@gmail.com" className="btn btn-white">
               Email Me
             </a>
+
+            {/* 2. Download Resume -> BLUE (Matches LinkedIn) */}
             <a href="/Ashwin_Torphe_Resume.pdf" download className="btn">
               Download Resume
             </a>
+
+            {/* 3. LinkedIn -> BLUE */}
             <a
               href="https://www.linkedin.com/in/ashwin-torphe-873123104/"
               target="_blank"
@@ -159,7 +164,8 @@ function App() {
             >
               LinkedIn
             </a>
-            {/* UPDATED: GitHub button is now White */}
+
+            {/* 4. GitHub -> WHITE */}
             <a
               href="https://github.com/recontour"
               target="_blank"

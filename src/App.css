@@ -1,173 +1,274 @@
-/* ==== CSS VARIABLES ==== */
+/* --- CSS Variables --- */
 :root {
-  --bg-primary: #f5f5f5;
-  --bg-secondary: #ffffff;
-  --text-primary: #1f2937;
-  --text-secondary: #6b7280;
-  --border-color: #e5e7eb;
-  --header-bg: linear-gradient(135deg, #1e40af, #3b82f6);
-  --footer-bg: #111827;
-  --footer-text: #d1d5db;
-  --blue: #1e40af;
+  --primary-color: #0369a1; /* Sky-700 for headings/buttons */
+  --header-bg: #0284c7; /* Sky-600 for Header Background */
+  --footer-bg: #0c4a6e; /* Sky-900 for Footer Background */
+  --text-main: #000000; /* PURE BLACK TEXT */
+  --text-light: #ffffff;
+  --bg-main: #ffffff;
+  --gray-medium: #666666; /* Kept for dates/locations only */
 }
 
-[data-theme="dark"] {
-  --bg-primary: #1f2937;
-  --bg-secondary: #374151;
-  --text-primary: #f9fafb;
-  --text-secondary: #d1d5db;
-  --border-color: #4b5563;
-  --header-bg: linear-gradient(135deg, #1e3a8a, #1d4ed8);
-  --footer-bg: #111827;
-  --footer-text: #9ca3af;
+/* Reset and Base Styles */
+* {
+  box-sizing: border-box;
 }
 
-/* ==== GLOBAL ==== */
-* { box-sizing: border-box; }
 body {
   margin: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: var(--bg-primary) !important;
-  color: var(--text-primary);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  color: var(--text-main);
+  background-color: var(--bg-main);
   line-height: 1.6;
-  transition: background 0.3s ease, color 0.3s ease;
 }
 
-/* ==== HEADINGS ==== */
-h1, h2, h3, h4, h5, h6 {
-  color: var(--blue);
-  margin: 0 0 0.5rem 0;
-}
-
-/* ==== LAYOUT ==== */
-.container {
+.content-wrapper {
   max-width: 900px;
   margin: 0 auto;
-  padding: 0 1.5rem;
+  padding: 0 20px;
 }
 
-/* ==== HEADER ==== */
+/* --- Global Color Rules --- */
+h2,
+h3,
+h4 {
+  color: var(--primary-color);
+  font-weight: 700;
+}
+
+/* Sub-role titles (inside Microsoft) should be black now */
+h4 {
+  color: #000000 !important;
+}
+
+section strong,
+section b,
+li strong,
+p strong {
+  color: var(--primary-color);
+  font-weight: 700;
+}
+
+/* --- Header --- */
 .header {
-  background: var(--header-bg);
-  color: #fff;
-  padding: 2rem 0;
+  background-color: var(--header-bg);
+  width: 100%;
+  padding-top: 60px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid #0284c7;
+  margin-bottom: 40px;
 }
-.header h1 {
+
+h1 {
   font-size: 2.5rem;
-  color: #000;
-  margin-bottom: 0.5rem;
+  margin: 0 0 5px 0;
+  color: #000000;
+  font-weight: 800;
+  line-height: 1.1;
 }
-.header p {
-  margin: 0.25rem 0;
-  font-size: 1.1rem;
+
+.subtitle {
+  font-size: 1.2rem;
+  margin: 0 0 20px 0;
+  color: #000000;
+  font-weight: 500;
+  /* Removed opacity to ensure it stays pitch black */
+  opacity: 1;
 }
-.header .buttons {
-  margin-top: 1.25rem;
+
+.contact-info {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+  margin-bottom: 25px;
+  font-size: 1rem;
+  color: #000000; /* Pure Black */
 }
-.header .btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1.5rem;
-  border-radius: 9999px;
-  font-weight: 600;
+
+/* --- Buttons --- */
+.cta-buttons {
+  display: flex;
+  justify-content: flex-start;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-block;
   text-decoration: none;
-  transition: all 0.2s ease;
-  font-size: 0.95rem;
-}
-.header .btn-primary {
-  background: #fff;
-  color: #1e40af;
-}
-.header .btn-primary:hover { background: #e5e7eb; }
-.header .btn-outline {
-  border: 2px solid #fff;
-  color: #fff;
-}
-.header .btn-outline:hover {
-  background: #fff;
-  color: #1e40af;
-}
-.header .dark-toggle {
-  background: #fff;
-  color: #1e40af;
-  border: none;
-  cursor: pointer;
-  padding: 0.75rem 1.2rem;
-  border-radius: 9999px;
+  color: white;
+  background-color: var(--primary-color);
+  padding: 12px 24px;
+  border-radius: 4px;
   font-weight: 600;
-  font-size: 0.9rem;
-  transition: all 0.2s ease;
+  font-size: 0.95rem;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+  border: 1px solid var(--primary-color);
+  text-align: center;
 }
-.header .dark-toggle:hover { background: #e5e7eb; }
 
-/* ==== SKILLS ==== */
-.skills {
+.btn:hover {
+  transform: translateY(-2px);
+  background-color: #0284c7;
+  border-color: #0284c7;
+}
+
+/* White Button (for Email Me / GitHub) */
+.btn-white {
+  background-color: #ffffff;
+  color: var(--primary-color);
+  border: 1px solid #ffffff;
+}
+
+.btn-white:hover {
+  background-color: #f0f9ff;
+  color: #0284c7;
+  border-color: #f0f9ff;
+}
+
+/* --- Typography in Sections --- */
+h2 {
+  font-size: 1.4rem;
+  border-bottom: 2px solid #e2e8f0;
+  padding-bottom: 10px;
+  margin-top: 40px;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+h3 {
+  font-size: 1.25rem;
+  margin-bottom: 5px;
+  color: var(--primary-color);
+}
+
+h4 {
+  font-size: 1.1rem;
+  margin-top: 20px;
+  margin-bottom: 5px;
+  color: #000000; /* Sub-roles are now black */
+}
+
+p {
+  margin-bottom: 1rem;
+  color: #000000; /* Paragraphs are now pure black */
+}
+
+/* --- Skills --- */
+.skills-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
-  margin-top: 1rem;
+  gap: 12px;
 }
-.skill-icon {
+
+.skill-item {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 1rem;
-  background: var(--bg-secondary);
-  border: 1px solid var(--border-color);
-  border-radius: 0.5rem;
+  gap: 8px;
+  font-weight: 600;
+  background-color: #e0f2fe;
+  color: var(--primary-color);
+  padding: 8px 16px;
+  border-radius: 4px;
   font-size: 0.9rem;
-  transition: background 0.2s;
-}
-.skill-icon:hover { background: var(--border-color); }
-.skill-icon svg { width: 20px; height: 20px; fill: var(--blue); }
-
-/* ==== SECTION ==== */
-.section {
-  padding: 1.5rem 0;
-}
-.section h2 {
-  font-size: 1.75rem;
-  margin-bottom: 0.75rem;
-  border-bottom: 2px solid var(--border-color);
-  padding-bottom: 0.4rem;
 }
 
-/* ==== EXPERIENCE ==== */
-.exp-item {
-  margin-bottom: 1.5rem;
+.skill-icon {
+  font-size: 1.1rem;
+  display: flex;
 }
-.exp-item h3 {
-  font-size: 1.25rem;
-  margin-bottom: 0.25rem;
+
+/* --- Experience --- */
+.experience-item {
+  margin-bottom: 35px;
 }
-.exp-item .meta {
-  color: var(--text-secondary);
+
+.exp-header {
+  margin-bottom: 8px;
+}
+
+.at {
+  color: #666; /* Keep 'at' slightly lighter for contrast, or change to #000 if preferred */
+  font-weight: normal;
+  font-size: 0.9em;
+}
+
+.exp-meta {
+  display: block;
+  font-size: 0.85rem;
+  color: var(
+    --gray-medium
+  ); /* Dates kept gray for hierarchy, can be black if requested */
+  margin-top: 2px;
+  font-weight: 500;
+}
+
+.sub-role-item {
+  border-left: 3px solid #e2e8f0;
+  padding-left: 20px;
+  margin-bottom: 20px;
+}
+
+ul {
+  padding-left: 18px;
+  margin-top: 0;
+}
+
+li {
+  margin-bottom: 8px;
+  color: #000000; /* List items are now pure black */
   font-size: 0.95rem;
-  margin-bottom: 0.5rem;
-}
-.exp-item ul {
-  margin: 0.5rem 0 0 1.25rem;
-  padding: 0;
-}
-.exp-item li {
-  margin-bottom: 0.35rem;
-}
-.exp-section {
-  background: var(--bg-secondary);
-  padding: 1.5rem 0;
 }
 
-/* ==== FOOTER ==== */
+/* --- Footer --- */
 .footer {
-  background: var(--footer-bg);
-  color: var(--footer-text);
+  margin-top: 60px;
+  padding: 15px 20px;
   text-align: center;
-  padding: 1.5rem 0;
-  font-size: 0.95rem;
+  color: #ffffff;
+  font-size: 0.85rem;
+  background-color: var(--footer-bg);
 }
-.footer p { margin: 0.25rem 0; }
+
+/* =========================================
+   MOBILE OPTIMIZATION 
+   ========================================= */
+@media (max-width: 600px) {
+  .cta-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .btn {
+    width: auto;
+    padding: 10px 5px;
+    font-size: 0.9rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .header {
+    padding-top: 30px;
+    padding-bottom: 30px;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  .subtitle {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+  }
+
+  .sub-role-item {
+    padding-left: 15px;
+  }
+}

@@ -1,44 +1,25 @@
-import { useState, useEffect } from 'react';
-import './App.css';
+import "./App.css";
 
-// SVG Icons
-const AzureIcon = () => (
-  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-    <path d="M13.05 4.24L6.56 18.05 2 18.05 8.5 4.24H13.05ZM21.5 18.05H12.29L9.58 11.31H15.81L21.5 18.05Z"/>
-  </svg>
-);
+// --- STABLE ICON IMPORTS ---
+import { VscAzure } from "react-icons/vsc";
 
-const ReactIcon = () => (
-  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-    <circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" strokeWidth="2"/>
-    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" fill="none" stroke="currentColor" strokeWidth="2"/>
-    <path d="M12 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" fill="currentColor"/>
-  </svg>
-);
-
-const AWSIcon = () => (
-  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/>
-    <path fill="#fff" d="M17.5 14.5l-2-1-2 1v-3l2-1 2 1v3z"/>
-    <path fill="#fff" d="M8.5 14.5l-2-1-2 1v-3l2-1 2 1v3z"/>
-  </svg>
-);
-
-const JiraIcon = () => (
-  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-    <path d="M12 2L2 12l10 10 10-10L12 2z"/>
-    <path fill="#fff" d="M12 7l-5 5 5 5 5-5-5-5z"/>
-  </svg>
-);
+import {
+  FaReact,
+  FaAws,
+  FaLinkedinIn,
+  FaGithub,
+  FaJira,
+  FaProjectDiagram,
+} from "react-icons/fa";
 
 function App() {
-  const [theme, setTheme] = useState('light');
-
-  useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme);
-  }, [theme]);
-
-  const toggleTheme = () => setTheme(prev => prev === 'light' ? 'dark' : 'light');
+  const skills = [
+    { name: "Microsoft Azure", icon: <VscAzure /> },
+    { name: "React", icon: <FaReact /> },
+    { name: "AWS", icon: <FaAws /> },
+    { name: "Jira", icon: <FaJira /> },
+    { name: "Agile/Scrum", icon: <FaProjectDiagram /> },
+  ];
 
   const experiences = [
     {
@@ -47,12 +28,11 @@ function App() {
       period: "Dec 2023 – Oct 2024",
       location: "Mumbai – Maharashtra",
       points: [
-        "Responsible for managing client relationships and overseeing project estimations. I work closely with clients to understand their requirements and ensure alignment with project goals.",
-        "When the tech stack is not predetermined, I assist in selecting the most suitable technologies for the project.",
-        "I lead the team by clearly communicating project objectives and guiding them through each phase of development.",
-        "I plan and coordinate sprints, providing regular updates to clients, and adjust future sprints based on their feedback.",
-        "My role is to ensure smooth project execution, from concept to delivery, while keeping both the team and client in sync."
-      ]
+        "Drove strategic alignment by overseeing client relationships, managing project estimations, and defining success criteria.",
+        "Provided architectural guidance by selecting and validating optimal tech stacks (<strong>React, Azure</strong>) ensuring scalability.",
+        "Led and mentored development teams, translating client requirements into actionable objectives.",
+        "Managed Agile sprints ensuring on-time delivery and adaptive planning based on feedback.",
+      ],
     },
     {
       title: "Project Manager",
@@ -60,12 +40,23 @@ function App() {
       period: "Sept 2021 – Nov 2023",
       location: "Nagpur – Maharashtra",
       points: [
-        "Managed a team of 8 developers, ensuring that projects were delivered on time, within scope, and within budget.",
-        "Monitored daily operations and coordinated the team’s efforts to meet project goals.",
-        "Worked closely with stakeholders to define project scopes and objectives, ensuring technical feasibility and clarity.",
-        "Led the product development process from concept through design, build, release, and iteration.",
-        "Provided regular progress reports and metrics to keep all parties informed and aligned, removing any ambiguity and ensuring smooth delivery."
-      ]
+        "Managed a team of 8 developers, consistently delivering projects <strong>on time and within budget</strong>.",
+        "Improved operational efficiency by monitoring daily workflows and coordinating efforts.",
+        "Defined clear project blueprints by collaborating with stakeholders to finalize scope and feasibility.",
+        "Directed the full product development lifecycle from concept through launch.",
+      ],
+    },
+    {
+      title: "Project Manager",
+      company: "Tipstat",
+      period: "May 2020 – Aug 2021",
+      location: "Bengaluru – Karnataka",
+      points: [
+        "Orchestrated seamless project delivery by coordinating cross-functional resources and vendors.",
+        "Cultivated strong client relationships, acting as the primary bridge to manage expectations.",
+        "Spearheaded the full product lifecycle through design, construction, and market launch.",
+        "Guided the team in leveraging diverse tech stacks including <strong>Python, NodeJS, AWS, MongoDB, and Azure</strong>.",
+      ],
     },
     {
       title: "Project Manager",
@@ -73,68 +64,60 @@ function App() {
       period: "Sept 2018 – April 2020",
       location: "Bengaluru – Karnataka",
       points: [
-        "Led a cross-functional team of 8, including dev-ops, developers, and testers.",
-        "Monitored tasks to ensure timely delivery and was responsible for the full project lifecycle, from development to bug resolution for both web and mobile platforms.",
-        "Managed sprint releases and feature deployments using Kanban methodologies.",
-        "Prioritized changes and bug fixes to meet deadlines.",
-        "Worked closely with stakeholders to design products and plan for future projects."
-      ]
+        "Led a cross-functional Agile team of 8 to deliver seamless web and mobile solutions.",
+        "Owned the complete project lifecycle from feature development to bug resolution.",
+        "Streamlined release cycles using <strong>Kanban methodologies</strong>.",
+        "Optimized roadmap execution by prioritizing critical changes to meet deadlines.",
+      ],
     },
+    // --- GROUPED MICROSOFT EXPERIENCE ---
     {
-      title: "Learning And Development Specialist",
       company: "Microsoft",
-      period: "April 2007 – Dec 2017",
+      period: "April 2007 – Dec 2017 (10 Years)",
       location: "Bengaluru – Karnataka",
-      points: [
-        "Managed the publication of training content for Microsoft trainers, ensuring accurate and timely delivery through the Learning Management System.",
-        "Assisted trainers with content publication and resolved any issues reported by team managers.",
-        "Monitored and analysed reporting data for training sessions, identifying and addressing SLA breaches, and provided regular updates to business owners."
-      ]
-    },
-    {
-      title: "Team Leader",
-      company: "Microsoft",
-      period: "April 2007 – Dec 2017",
-      location: "Bengaluru – Karnataka",
-      points: [
-        "Led a team of 7 engineers managing operations for Microsoft’s consumer support ticketing system.",
-        "Tracked team performance for appraisal cycles and coordinated the resolution of issues and bugs reported by product support sites by collaborating with Backend Ops and Development teams.",
-        "Implemented new workflows as planned by stakeholders and visited support sites with the Microsoft Service Delivery team during product launches or new tool releases."
-      ]
-    },
-    {
-      title: "Escalation Engineer",
-      company: "Microsoft",
-      period: "April 2007 – Dec 2017",
-      location: "Bengaluru – Karnataka",
-      points: [
-        "Part of the escalations team for a pilot project focused on forum support.",
-        "Investigated issues escalated by moderators related to Hotmail user mailboxes and contacts, using internal tools to identify whether issues were backend-related or specific to the user’s machine.",
-        "Assisted users in resolving network and machine-specific issues on the Hotmail support forum, including addressing configuration problems with user profiles and mailboxes."
-      ]
-    },
-    {
-      title: "Operations Engineer – Azure",
-      company: "Microsoft",
-      period: "April 2007 – Dec 2017",
-      location: "Bengaluru – Karnataka",
-      points: [
-        "Provided technical support to Microsoft Azure customers via phone and written correspondence, addressing issues related to Azure services and developer technologies.",
-        "Worked closely with Support Engineers and DevOps to resolve customer-reported problems.",
-        "Shared knowledge with the team to improve customer solutions and stayed informed about upcoming Azure products to ensure effective support.",
-        "Reported service issues and customer feedback to the Azure product group and documented known issues for both internal and external use."
-      ]
-    },
-    {
-      title: "Pre-Sales Executive",
-      company: "Microsoft",
-      period: "April 2007 – Dec 2017",
-      location: "Bengaluru – Karnataka",
-      points: [
-        "Collaborated with Microsoft Pre-Sales Technical Support to assist Microsoft Gold and Certified Partners.",
-        "Worked with product specialists to help partners resolve challenges during research and testing of Microsoft Enterprise products.",
-        "Coordinated product demos conducted by specialists for potential customers of Microsoft Partners."
-      ]
+      isGrouped: true,
+      intro:
+        "Experience acquired through continuous professional growth and promotions across multiple key roles.",
+      subRoles: [
+        {
+          title: "Learning And Development Specialist",
+          points: [
+            "Managed publication of training content ensuring accurate delivery through the Learning Management System.",
+            "Assisted trainers with content publication and resolved reported issues.",
+            "Monitored reporting data for training sessions and addressed SLA breaches.",
+          ],
+        },
+        {
+          title: "Team Leader",
+          points: [
+            "Led a team of 7 engineers managing operations for Microsoft’s consumer support ticketing system.",
+            "Tracked team performance and coordinated bug resolution with backend teams.",
+            "Implemented new workflows and supported site launches with the Service Delivery team.",
+          ],
+        },
+        {
+          title: "Escalation Engineer",
+          points: [
+            "Investigated escalated issues related to Hotmail user mailboxes and contacts.",
+            "Identified backend vs. machine-specific issues using internal tools.",
+          ],
+        },
+        {
+          title: "Operations Engineer – Azure",
+          points: [
+            "Provided technical support to Microsoft Azure customers via phone and correspondence.",
+            "Collaborated with DevOps to resolve customer-reported problems.",
+            "Shared knowledge to improve solutions and stayed informed on Azure updates.",
+          ],
+        },
+        {
+          title: "Pre-Sales Executive",
+          points: [
+            "Collaborated with Pre-Sales Technical Support to assist Microsoft Partners.",
+            "Resolved challenges during research and testing of Enterprise products.",
+          ],
+        },
+      ],
     },
     {
       title: "Customer Care Representative",
@@ -143,104 +126,161 @@ function App() {
       location: "Bengaluru – Karnataka",
       points: [
         "Provided technical support to First Data Merchant Services customers.",
-        "Troubleshot credit/debit card machines.",
-        "Handled transaction and device related queries."
-      ]
-    }
-  ];
-
-  const skills = [
-    { name: 'Azure', icon: <AzureIcon /> },
-    { name: 'React', icon: <ReactIcon /> },
-    { name: 'AWS', icon: <AWSIcon /> },
-    { name: 'Jira', icon: <JiraIcon /> },
-    { name: 'Agile/Scrum', icon: 'Sprint' },
-    { name: 'Kanban', icon: 'Kanban Board' }
+        "Troubleshot credit/debit card machines and transaction queries.",
+      ],
+    },
   ];
 
   return (
-    <div>
+    <div className="app-container">
       {/* ==== HEADER ==== */}
       <header className="header">
-        <div className="container">
+        <div className="content-wrapper">
           <h1>Ashwin Torphe</h1>
-          <p>ashwin.torphe@gmail.com</p>
-          <p>Phone: 9632659200</p>
+          <p className="subtitle">Project Leader & Azure Expert</p>
 
-          <div className="buttons">
-            <a href="mailto:ashwin.torphe@gmail.com" className="btn btn-primary">
+          <div className="contact-info">
+            <div>ashwin.torphe@gmail.com</div>
+            <div>+91 9632659200</div>
+          </div>
+
+          <div className="cta-buttons">
+            <a href="mailto:ashwin.torphe@gmail.com" className="btn btn-white">
               Email Me
             </a>
-            <a href="/Ashwin_Torphe_Resume.pdf" download className="btn btn-outline">
+            <a href="/Ashwin_Torphe_Resume.pdf" download className="btn">
               Download Resume
             </a>
-            <a href="https://www.linkedin.com/in/ashwin-torphe-873123104/" target="_blank" rel="noopener noreferrer" className="btn btn-primary">
+            <a
+              href="https://www.linkedin.com/in/ashwin-torphe-873123104/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn"
+            >
               LinkedIn
             </a>
-            <a href="https://github.com/recontour" target="_blank" rel="noopener noreferrer" className="btn btn-outline">
+            {/* UPDATED: GitHub button is now White */}
+            <a
+              href="https://github.com/recontour"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-white"
+            >
               GitHub
             </a>
-            <button onClick={toggleTheme} className="dark-toggle">
-              {theme === 'light' ? 'Dark Mode' : 'Light Mode'}
-            </button>
           </div>
         </div>
       </header>
 
-      {/* ==== SUMMARY + SKILLS ==== */}
-      <section className="section">
-        <div className="container">
+      {/* ==== MAIN CONTENT ==== */}
+      <main className="content-wrapper">
+        {/* ==== SUMMARY ==== */}
+        <section className="section summary-section">
           <h2>Summary</h2>
           <p>
-            Experienced project leader with hands-on expertise across diverse technologies and industries. 
-            I am committed to fostering work environments where people are valued. My leadership philosophy 
-            focuses on empowering teams, driving innovation, and solving complex problems without sacrificing 
-            the well-being of individuals.
+            <strong>Experienced project leader</strong> with hands-on expertise
+            across diverse technologies and industries. I am committed to
+            fostering work environments where people are valued. My leadership
+            philosophy focuses on{" "}
+            <strong>empowering teams, driving innovation</strong>, and solving
+            complex problems without sacrificing the well-being of individuals.
           </p>
-          <p style={{ marginTop: '0.75rem' }}>
-            I have successfully managed operations for multiple projects, led cross-functional teams, 
-            and overseen the full product development lifecycle. My goal is to contribute to an organization 
-            that prioritizes empowering people.
+          <p>
+            I have successfully managed operations for multiple projects, led
+            cross-functional teams, and overseen the{" "}
+            <strong>full product development lifecycle</strong>. My goal is to
+            contribute to an organization that prioritizes empowering people.
           </p>
+        </section>
 
-          <div className="skills">
+        {/* ==== SKILLS ==== */}
+        <section className="section skills-section">
+          <h2>Technical Skills</h2>
+          <div className="skills-list">
             {skills.map((skill, i) => (
-              <div key={i} className="skill-icon">
-                {skill.icon}
-                <span>{skill.name}</span>
+              <div key={i} className="skill-item">
+                <span className="skill-icon">{skill.icon}</span>
+                <span className="skill-name">{skill.name}</span>
               </div>
             ))}
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* ==== EXPERIENCE ==== */}
-      <section className="exp-section">
-        <div className="container">
+        {/* ==== EXPERIENCE ==== */}
+        <section className="section experience-section">
           <h2>Experience</h2>
-          {experiences.map((exp, i) => (
-            <div key={i} className="exp-item">
-              <h3>{exp.title} | {exp.company}</h3>
-              <p className="meta">{exp.period} • {exp.location}</p>
-              <ul>
-                {exp.points.map((p, idx) => <li key={idx}>{p}</li>)}
-              </ul>
-            </div>
-          ))}
-        </div>
-      </section>
+          <div className="experience-list">
+            {experiences.map((exp, i) => (
+              <div key={i} className="experience-item">
+                {exp.isGrouped ? (
+                  /* GROUPED RENDER (Microsoft) */
+                  <div>
+                    <div className="exp-header">
+                      <h3>{exp.company}</h3>
+                      <span className="exp-meta">
+                        {exp.period} • {exp.location}
+                      </span>
+                    </div>
+                    {exp.intro && (
+                      <p
+                        style={{
+                          fontStyle: "italic",
+                          color: "#666",
+                          marginBottom: "20px",
+                        }}
+                      >
+                        {exp.intro}
+                      </p>
+                    )}
 
-      {/* ==== EDUCATION ==== */}
-      <section className="section">
-        <div className="container">
+                    {exp.subRoles.map((role, rIdx) => (
+                      <div key={rIdx} className="sub-role-item">
+                        <h4>{role.title}</h4>
+                        <ul>
+                          {role.points.map((p, pIdx) => (
+                            <li
+                              key={pIdx}
+                              dangerouslySetInnerHTML={{ __html: p }}
+                            />
+                          ))}
+                        </ul>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  /* STANDARD RENDER */
+                  <div>
+                    <div className="exp-header">
+                      <h3>
+                        {exp.title} <span className="at">at</span> {exp.company}
+                      </h3>
+                      <span className="exp-meta">
+                        {exp.period} • {exp.location}
+                      </span>
+                    </div>
+                    <ul>
+                      {exp.points.map((p, idx) => (
+                        <li key={idx} dangerouslySetInnerHTML={{ __html: p }} />
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* ==== EDUCATION ==== */}
+        <section className="section education-section">
           <h2>Education</h2>
-          <p>Diploma in Mechanical Engineering 2002</p>
-        </div>
-      </section>
+          <p className="education-item">
+            <strong>Diploma in Mechanical Engineering</strong> — 2002
+          </p>
+        </section>
+      </main>
 
       {/* ==== FOOTER ==== */}
       <footer className="footer">
-        <p>ashwin.torphe@gmail.com | +91 9632659200</p>
         <p>Let’s build the future — one sprint at a time.</p>
       </footer>
     </div>

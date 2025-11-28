@@ -1,24 +1,44 @@
-import "./App.css";
-
-// --- STABLE ICON IMPORTS ---
-import { VscAzure } from "react-icons/vsc";
-
-import {
-  FaReact,
-  FaAws,
-  FaLinkedinIn,
-  FaGithub,
-  FaJira,
-  FaProjectDiagram,
-} from "react-icons/fa";
+import React, { useState, useEffect } from "react";
 
 function App() {
+  const [scrollY, setScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => setScrollY(window.scrollY);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const Icon = ({ path }) => (
+    <svg
+      viewBox="0 0 24 24"
+      style={{ width: "18px", height: "18px", fill: "#e2e8f0" }}
+    >
+      <path d={path} />
+    </svg>
+  );
+
   const skills = [
-    { name: "Microsoft Azure", icon: <VscAzure /> },
-    { name: "React", icon: <FaReact /> },
-    { name: "AWS", icon: <FaAws /> },
-    { name: "Jira", icon: <FaJira /> },
-    { name: "Agile/Scrum", icon: <FaProjectDiagram /> },
+    {
+      name: "Azure",
+      path: "M17.5,19c-3.03,0-5.5-2.47-5.5-5.5c0-0.44,0.05-0.86,0.15-1.27c-0.49-0.15-1.01-0.23-1.55-0.23c-2.58,0-4.73,1.81-5.34,4.24C5.07,16.14,5,16.07,5,16c0-2.21,1.79-4,4-4c0.14,0,0.28,0.01,0.42,0.04C10.03,10.05,12.33,8.5,15,8.5c3.59,0,6.5,2.91,6.5,6.5S19.45,20,16.5,20h-5.08",
+    },
+    {
+      name: "React",
+      path: "M12,2C6.48,2,2,6.48,2,12s4.48,10,10,10s10-4.48,10-10S17.52,2,12,2z M12,20c-4.41,0-8-3.59-8-8s3.59-8,8-8s8,3.59,8,8S16.41,20,12,20z M12,5.9c-3.31,0-6,2.69-6,6s2.69,6,6,6s6-2.69,6-6S15.31,5.9,12,5.9z",
+    },
+    {
+      name: "AWS",
+      path: "M20,13H4c-0.55,0-1,0.45-1,1v6c0,0.55,0.45,1,1,1h16c0.55,0,1-0.45,1-1v-6C21,13.45,20.55,13,20,13z M19,19H5v-4h14V19z M20,3H4C3.45,3,3,3.45,3,4v6c0,0.55,0.45,1,1,1h16c0.55,0,1-0.45,1-1V4C21,3.45,20.55,3,20,3z M19,9H5V5h14V9z",
+    },
+    {
+      name: "Jira",
+      path: "M19,3h-4.18C14.4,1.84,13.3,1,12,1c-1.3,0-2.4,0.84-2.82,2H5C3.9,3,3,3.9,3,5v14c0,1.1,0.9,2,2,2h14c1.1,0,2-0.9,2-2V5C21,3.9,20.1,3,19,3z M12,3c0.55,0,1,0.45,1,1s-0.45,1-1,1s-1-0.45-1-1S11.45,3,12,3z M14,17H7v-2h7V17z M17,13H7v-2h10V13z M17,9H7V7h10V9z",
+    },
+    {
+      name: "Agile",
+      path: "M12,4V1L8,5l4,4V6c3.31,0,6,2.69,6,6c0,1.01-0.25,1.97-0.7,2.8l1.46,1.46C19.54,15.03,20,13.57,20,12C20,7.58,16.42,4,12,4z M4,12c0-1.01,0.25-1.97,0.7-2.8L3.24,7.74C2.46,8.97,2,10.43,2,12c0,4.42,3.58,8,8,8v3l4-4l-4-4v3C6.69,18,4,15.31,4,12z",
+    },
   ];
 
   const experiences = [
@@ -29,7 +49,7 @@ function App() {
       location: "Mumbai – Maharashtra",
       points: [
         "Drove strategic alignment by overseeing client relationships, managing project estimations, and defining success criteria.",
-        "Provided architectural guidance by selecting and validating optimal tech stacks (<strong>React, Azure</strong>) ensuring scalability.",
+        "Provided architectural guidance by selecting and validating optimal tech stacks (React, Azure) ensuring scalability.",
         "Led and mentored development teams, translating client requirements into actionable objectives.",
         "Managed Agile sprints ensuring on-time delivery and adaptive planning based on feedback.",
       ],
@@ -40,7 +60,7 @@ function App() {
       period: "Sept 2021 – Nov 2023",
       location: "Nagpur – Maharashtra",
       points: [
-        "Managed a team of 8 developers, consistently delivering projects <strong>on time and within budget</strong>.",
+        "Managed a team of 8 developers, consistently delivering projects on time and within budget.",
         "Improved operational efficiency by monitoring daily workflows and coordinating efforts.",
         "Defined clear project blueprints by collaborating with stakeholders to finalize scope and feasibility.",
         "Directed the full product development lifecycle from concept through launch.",
@@ -55,7 +75,7 @@ function App() {
         "Orchestrated seamless project delivery by coordinating cross-functional resources and vendors.",
         "Cultivated strong client relationships, acting as the primary bridge to manage expectations.",
         "Spearheaded the full product lifecycle through design, construction, and market launch.",
-        "Guided the team in leveraging diverse tech stacks including <strong>Python, NodeJS, AWS, MongoDB, and Azure</strong>.",
+        "Guided the team in leveraging diverse tech stacks including Python, NodeJS, AWS, MongoDB, and Azure.",
       ],
     },
     {
@@ -66,11 +86,10 @@ function App() {
       points: [
         "Led a cross-functional Agile team of 8 to deliver seamless web and mobile solutions.",
         "Owned the complete project lifecycle from feature development to bug resolution.",
-        "Streamlined release cycles using <strong>Kanban methodologies</strong>.",
+        "Streamlined release cycles using Kanban methodologies.",
         "Optimized roadmap execution by prioritizing critical changes to meet deadlines.",
       ],
     },
-    // --- GROUPED MICROSOFT EXPERIENCE ---
     {
       company: "Microsoft",
       period: "April 2007 – Dec 2017 (10 Years)",
@@ -90,7 +109,7 @@ function App() {
         {
           title: "Team Leader",
           points: [
-            "Led a team of 7 engineers managing operations for Microsoft’s consumer support ticketing system.",
+            "Led a team of 7 engineers managing operations for Microsoft's consumer support ticketing system.",
             "Tracked team performance and coordinated bug resolution with backend teams.",
             "Implemented new workflows and supported site launches with the Service Delivery team.",
           ],
@@ -132,165 +151,396 @@ function App() {
   ];
 
   return (
-    <div className="app-container">
-      {/* ==== HEADER ==== */}
-      <header className="header">
-        <div className="content-wrapper">
-          <h1>Ashwin Torphe</h1>
-          <p className="subtitle">Project Leader & Azure Expert</p>
+    <div style={styles.container}>
+      {/* GLOBAL RESET to fix the white border issue */}
+      <style>{`
+        body { margin: 0; padding: 0; box-sizing: border-box; }
+        * { box-sizing: border-box; }
+      `}</style>
 
-          <div className="contact-info">
-            <div>ashwin.torphe@gmail.com</div>
-            <div>+91 9632659200</div>
+      <div
+        style={{ ...styles.bgGradient, opacity: Math.min(scrollY / 500, 0.3) }}
+      />
+
+      {/* Hero Section */}
+      <header style={styles.hero}>
+        <div style={styles.heroContent}>
+          <div style={styles.nameContainer}>
+            <h1 style={styles.name}>Ashwin Torphe</h1>
+            <p style={styles.tagline}>Project Leader • Azure Expert</p>
           </div>
 
-          <div className="cta-buttons">
-            {/* 1. Email Me -> WHITE */}
-            <a href="mailto:ashwin.torphe@gmail.com" className="btn btn-white">
+          <div style={styles.contactRow}>
+            <a href="mailto:ashwin.torphe@gmail.com" style={styles.contactLink}>
+              ashwin.torphe@gmail.com
+            </a>
+            <span style={styles.contactDivider}>|</span>
+            <a href="tel:+919632659200" style={styles.contactLink}>
+              +91 9632659200
+            </a>
+          </div>
+
+          <div style={styles.btnGroup}>
+            <a
+              href="mailto:ashwin.torphe@gmail.com"
+              style={{ ...styles.btn, ...styles.btnPrimary }}
+            >
               Email Me
             </a>
-
-            {/* 2. Download Resume -> BLUE (Matches LinkedIn) */}
-            <a href="/Ashwin_Torphe_Resume.pdf" download className="btn">
-              Download Resume
-            </a>
-
-            {/* 3. LinkedIn -> BLUE */}
             <a
-              href="https://www.linkedin.com/in/ashwin-torphe-873123104/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn"
+              href="/Ashwin_Torphe_Resume.pdf"
+              download
+              style={{ ...styles.btn, ...styles.btnSecondary }}
             >
-              LinkedIn
+              Resume
             </a>
 
-            {/* 4. GitHub -> WHITE */}
             <a
               href="https://github.com/recontour"
               target="_blank"
               rel="noopener noreferrer"
-              className="btn btn-white"
+              style={{ ...styles.btn, ...styles.btnSecondary }}
             >
               GitHub
+            </a>
+            <a
+              href="https://www.linkedin.com/in/ashwin-torphe-873123104/"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ ...styles.btn, ...styles.btnPrimary }}
+            >
+              LinkedIn
             </a>
           </div>
         </div>
       </header>
 
-      {/* ==== MAIN CONTENT ==== */}
-      <main className="content-wrapper">
-        {/* ==== SUMMARY ==== */}
-        <section className="section summary-section">
-          <h2>Summary</h2>
-          <p>
-            <strong>Experienced project leader</strong> with hands-on expertise
-            across diverse technologies and industries. I am committed to
-            fostering work environments where people are valued. My leadership
-            philosophy focuses on{" "}
-            <strong>empowering teams, driving innovation</strong>, and solving
-            complex problems without sacrificing the well-being of individuals.
-          </p>
-          <p>
-            I have successfully managed operations for multiple projects, led
-            cross-functional teams, and overseen the{" "}
-            <strong>full product development lifecycle</strong>. My goal is to
-            contribute to an organization that prioritizes empowering people.
+      {/* Main Content */}
+      <main style={styles.main}>
+        {/* Summary Card */}
+        <section style={styles.card}>
+          <h2 style={styles.sectionTitle}>About Me</h2>
+          <p style={styles.summaryText}>
+            <strong style={styles.highlight}>Experienced project leader</strong>{" "}
+            with hands-on expertise across diverse technologies and industries.
+            I am committed to fostering work environments where people are
+            valued. My leadership philosophy focuses on{" "}
+            <strong style={styles.highlight}>
+              empowering teams, driving innovation
+            </strong>
+            , and solving complex problems without sacrificing the well-being of
+            individuals.
           </p>
         </section>
 
-        {/* ==== SKILLS ==== */}
-        <section className="section skills-section">
-          <h2>Technical Skills</h2>
-          <div className="skills-list">
+        {/* Skills Section */}
+        <section style={styles.card}>
+          <h2 style={styles.sectionTitle}>Technical Skills</h2>
+          <div style={styles.skillsGrid}>
             {skills.map((skill, i) => (
-              <div key={i} className="skill-item">
-                <span className="skill-icon">{skill.icon}</span>
-                <span className="skill-name">{skill.name}</span>
+              <div key={i} style={styles.skillCard}>
+                <div style={styles.skillIcon}>
+                  <Icon path={skill.path} />
+                </div>
+                <span style={styles.skillName}>{skill.name}</span>
               </div>
             ))}
           </div>
         </section>
 
-        {/* ==== EXPERIENCE ==== */}
-        <section className="section experience-section">
-          <h2>Experience</h2>
-          <div className="experience-list">
+        {/* Experience Section */}
+        <section style={styles.card}>
+          <h2 style={styles.sectionTitle}>Experience</h2>
+          <div style={styles.timeline}>
             {experiences.map((exp, i) => (
-              <div key={i} className="experience-item">
-                {exp.isGrouped ? (
-                  /* GROUPED RENDER (Microsoft) */
-                  <div>
-                    <div className="exp-header">
-                      <h3>{exp.company}</h3>
-                      <span className="exp-meta">
+              <div key={i} style={styles.timelineItem}>
+                <div style={styles.timelineDot} />
+                <div style={styles.expCard}>
+                  {exp.isGrouped ? (
+                    <div>
+                      <h3 style={styles.expTitle}>{exp.company}</h3>
+                      <p style={styles.expMeta}>
                         {exp.period} • {exp.location}
-                      </span>
-                    </div>
-                    {exp.intro && (
-                      <p
-                        style={{
-                          fontStyle: "italic",
-                          color: "#666",
-                          marginBottom: "20px",
-                        }}
-                      >
-                        {exp.intro}
                       </p>
-                    )}
-
-                    {exp.subRoles.map((role, rIdx) => (
-                      <div key={rIdx} className="sub-role-item">
-                        <h4>{role.title}</h4>
-                        <ul>
-                          {role.points.map((p, pIdx) => (
-                            <li
-                              key={pIdx}
-                              dangerouslySetInnerHTML={{ __html: p }}
-                            />
-                          ))}
-                        </ul>
-                      </div>
-                    ))}
-                  </div>
-                ) : (
-                  /* STANDARD RENDER */
-                  <div>
-                    <div className="exp-header">
-                      <h3>
-                        {exp.title} <span className="at">at</span> {exp.company}
-                      </h3>
-                      <span className="exp-meta">
-                        {exp.period} • {exp.location}
-                      </span>
-                    </div>
-                    <ul>
-                      {exp.points.map((p, idx) => (
-                        <li key={idx} dangerouslySetInnerHTML={{ __html: p }} />
+                      <p style={styles.expIntro}>{exp.intro}</p>
+                      {exp.subRoles.map((role, rIdx) => (
+                        <div key={rIdx} style={styles.subRole}>
+                          <h4 style={styles.subRoleTitle}>{role.title}</h4>
+                          <ul style={styles.bulletList}>
+                            {role.points.map((p, pIdx) => (
+                              <li key={pIdx} style={styles.bulletItem}>
+                                {p}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
                       ))}
-                    </ul>
-                  </div>
-                )}
+                    </div>
+                  ) : (
+                    <div>
+                      <h3 style={styles.expTitle}>
+                        {exp.title} <span style={styles.expAt}>at</span>{" "}
+                        <span style={styles.expCompany}>{exp.company}</span>
+                      </h3>
+                      <p style={styles.expMeta}>
+                        {exp.period} • {exp.location}
+                      </p>
+                      <ul style={styles.bulletList}>
+                        {exp.points.map((p, idx) => (
+                          <li key={idx} style={styles.bulletItem}>
+                            {p}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </div>
               </div>
             ))}
           </div>
-        </section>
-
-        {/* ==== EDUCATION ==== */}
-        <section className="section education-section">
-          <h2>Education</h2>
-          <p className="education-item">
-            <strong>Diploma in Mechanical Engineering</strong> — 2002
-          </p>
         </section>
       </main>
 
-      {/* ==== FOOTER ==== */}
-      <footer className="footer">
-        <p>Let’s build the future — one sprint at a time.</p>
+      {/* Footer */}
+      <footer style={styles.footer}>
+        <p style={styles.footerText}>
+          Let's build the future — one sprint at a time.
+        </p>
       </footer>
     </div>
   );
 }
+
+const styles = {
+  container: {
+    minHeight: "100vh",
+    background: "#0f172a",
+    color: "#e2e8f0",
+    fontFamily:
+      '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+    position: "relative",
+    overflowX: "hidden",
+  },
+  bgGradient: {
+    position: "fixed",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    background:
+      "radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.1), transparent 50%)",
+    pointerEvents: "none",
+  },
+  hero: {
+    minHeight: "40vh",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "flex-start",
+    padding: "2rem", // Hero padding preserved
+    position: "relative",
+    zIndex: 1,
+  },
+  heroContent: {
+    maxWidth: "900px",
+    width: "100%",
+    margin: "0 auto",
+    textAlign: "left",
+  },
+  nameContainer: {
+    marginBottom: "0.25rem",
+  },
+  name: {
+    fontSize: "clamp(2rem, 5vw, 3rem)",
+    fontWeight: "600",
+    margin: 0,
+    color: "#f8fafc",
+    letterSpacing: "-0.01em",
+  },
+  tagline: {
+    fontSize: "clamp(0.9rem, 2vw, 1.1rem)",
+    color: "#94a3b8",
+    fontWeight: "400",
+    marginTop: "0.25rem",
+    marginBottom: "1rem",
+  },
+  contactRow: {
+    display: "flex",
+    gap: "0.75rem",
+    alignItems: "center",
+    justifyContent: "flex-start",
+    flexWrap: "wrap",
+    marginBottom: "1.5rem",
+  },
+  contactLink: {
+    color: "#cbd5e1",
+    textDecoration: "none",
+    fontSize: "0.85rem",
+    transition: "color 0.2s",
+  },
+  contactDivider: {
+    color: "#475569",
+  },
+  btnGroup: {
+    display: "grid",
+    gridTemplateColumns: "1fr 1fr",
+    gap: "0.75rem",
+    width: "100%",
+    maxWidth: "400px",
+  },
+  btn: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: "0.6rem 1rem",
+    borderRadius: "8px",
+    textDecoration: "none",
+    fontSize: "0.9rem",
+    fontWeight: "500",
+    transition: "all 0.2s ease",
+    border: "none",
+    cursor: "pointer",
+    textAlign: "center",
+  },
+  btnPrimary: {
+    background: "#2563eb",
+    color: "white",
+  },
+  btnSecondary: {
+    background: "rgba(255, 255, 255, 0.05)",
+    color: "#cbd5e1",
+  },
+  main: {
+    maxWidth: "900px",
+    margin: "0 auto",
+    padding: 8, // Removed padding completely as requested
+    position: "relative",
+    zIndex: 1,
+  },
+  card: {
+    background: "rgba(30, 41, 59, 0.3)",
+    borderRadius: "12px",
+    padding: "1.5rem",
+    marginBottom: "2rem",
+    // No border
+  },
+  sectionTitle: {
+    fontSize: "1.25rem",
+    fontWeight: "600",
+    marginBottom: "1rem",
+    color: "#f1f5f9",
+    borderLeft: "3px solid #3b82f6",
+  },
+  summaryText: {
+    fontSize: "0.95rem",
+    lineHeight: "1.6",
+    color: "#cbd5e1",
+  },
+  highlight: {
+    color: "#60a5fa",
+    fontWeight: "500",
+  },
+  skillsGrid: {
+    display: "grid",
+    gridTemplateColumns: "repeat(auto-fill, minmax(100px, 1fr))",
+    gap: "0.75rem",
+  },
+  skillCard: {
+    background: "rgba(30, 41, 59, 0.4)",
+    borderRadius: "6px",
+    padding: "0.6rem 0.8rem",
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: "0.5rem",
+  },
+  skillIcon: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    opacity: 0.9,
+  },
+  skillName: {
+    fontSize: "0.8rem",
+    color: "#cbd5e1",
+    fontWeight: "500",
+  },
+  timeline: {
+    position: "relative",
+    paddingLeft: "1rem",
+    borderLeft: "2px solid rgba(59, 130, 246, 0.2)",
+  },
+  timelineItem: {
+    position: "relative",
+    marginBottom: "2rem",
+  },
+  timelineDot: {
+    position: "absolute",
+    left: "-1.37rem",
+    top: "0.3rem",
+    width: "8px",
+    height: "8px",
+    borderRadius: "50%",
+    background: "#3b82f6",
+    border: "2px solid #0f172a",
+  },
+  expCard: {
+    paddingLeft: "0.5rem",
+  },
+  expTitle: {
+    fontSize: "1.05rem",
+    fontWeight: "600",
+    color: "#e2e8f0",
+    marginBottom: "0.2rem",
+  },
+  expAt: {
+    color: "#64748b",
+    fontWeight: "400",
+    fontSize: "0.9rem",
+  },
+  expCompany: {
+    color: "#60a5fa",
+  },
+  expMeta: {
+    color: "#64748b",
+    fontSize: "0.8rem",
+    marginBottom: "0.75rem",
+  },
+  expIntro: {
+    fontStyle: "italic",
+    color: "#94a3b8",
+    marginBottom: "0.75rem",
+    fontSize: "0.85rem",
+  },
+  subRole: {
+    marginBottom: "1.25rem",
+    marginTop: "0.75rem",
+  },
+  subRoleTitle: {
+    fontSize: "0.95rem",
+    fontWeight: "600",
+    color: "#cbd5e1",
+    marginBottom: "0.4rem",
+  },
+  bulletList: {
+    paddingLeft: "1rem",
+    margin: 0,
+  },
+  bulletItem: {
+    color: "#94a3b8",
+    marginBottom: "0.3rem",
+    lineHeight: "1.4",
+    fontSize: "0.9rem",
+  },
+  footer: {
+    textAlign: "center",
+    padding: "0.5rem",
+    marginTop: 0,
+  },
+  footerText: {
+    color: "#64748b",
+    fontSize: "0.8rem",
+  },
+};
 
 export default App;

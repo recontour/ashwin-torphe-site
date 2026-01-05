@@ -167,7 +167,7 @@ function App() {
         <div style={styles.heroContent}>
           <div style={styles.nameContainer}>
             <h1 style={styles.name}>Ashwin Torphe</h1>
-            <p style={styles.tagline}>Project Leader • Azure Expert</p>
+            <p style={styles.tagline}>Project Leader • AI Expert</p>
           </div>
 
           <div style={styles.contactRow}>
@@ -429,6 +429,7 @@ const styles = {
     marginBottom: "1rem",
     color: "#f1f5f9",
     borderLeft: "3px solid #3b82f6",
+    paddingLeft: "0.75rem",
   },
   summaryText: {
     fontSize: "0.95rem",

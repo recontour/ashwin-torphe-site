@@ -30,6 +30,34 @@ function App() {
     
     document.body.appendChild(clone);
 
+    // Enforce page break logic
+    const tipstatElement = clone.querySelector("#tipstat-section");
+    if (tipstatElement) {
+        // Add requested margin
+        tipstatElement.style.marginTop = "6rem";
+
+        const pageHeight = 1200 * (297 / 210); // A4 ratio height in px for 1200px width
+        
+        // Get current position relative to container
+        // Note: we need to account for the fact that clone is absolute top -10000
+        // We use getBoundingClientRect() relative to the clone container
+        const containerRect = clone.getBoundingClientRect();
+        const elementRect = tipstatElement.getBoundingClientRect();
+        const offsetTop = elementRect.top - containerRect.top;
+        
+        const remainder = offsetTop % pageHeight;
+        
+        // If not already at the top of a page (with some tolerance)
+        if (remainder > 50) { 
+            const spacerHeight = pageHeight - remainder;
+            const spacer = document.createElement("div");
+            spacer.style.height = spacerHeight + "px";
+            spacer.style.width = "100%";
+            // Insert spacer before the element
+            tipstatElement.parentNode.insertBefore(spacer, tipstatElement);
+        }
+    }
+
     try {
       const canvas = await html2canvas(clone, {
         scale: 2,
@@ -347,7 +375,11 @@ function App() {
           <h2 style={styles.sectionTitle}>Experience</h2>
           <div style={styles.timeline}>
             {experiences.map((exp, i) => (
-              <div key={i} style={styles.timelineItem}>
+              <div 
+                key={i} 
+                style={styles.timelineItem} 
+                id={exp.company === "Tipstat" ? "tipstat-section" : null}
+              >
                 <div style={styles.timelineDot} />
                 <div style={styles.expCard}>
                   {exp.isGrouped ? (

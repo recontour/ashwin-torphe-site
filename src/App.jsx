@@ -1,6 +1,40 @@
-import React, { useState, useEffect } from "react";
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
+import React, { useState, useEffect, useRef } from "react";
 
 function App() {
+
+  const containerRef = useRef(null);
+
+  const handleDownloadPDF = async () => {
+    const element = containerRef.current;
+    if (!element) return;
+
+    try {
+      const canvas = await html2canvas(element, {
+        scale: 2,
+        useCORS: true,
+        logging: false,
+        windowWidth: element.scrollWidth,
+        windowHeight: element.scrollHeight
+      });
+
+      const imgData = canvas.toDataURL("image/png");
+      
+      // Initialize jsPDF with custom dimensions based on the canvas
+      const pdf = new jsPDF({
+        orientation: "portrait",
+        unit: "px",
+        format: [canvas.width, canvas.height]
+      });
+
+      pdf.addImage(imgData, "PNG", 0, 0, canvas.width, canvas.height);
+      pdf.save("Ashwin_Torphe_Resume.pdf");
+    } catch (err) {
+      console.error("PDF generation failed", err);
+    }
+  };
+
   const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
@@ -168,7 +202,7 @@ function App() {
   ];
 
   return (
-    <div style={styles.container}>
+    <div ref={containerRef} style={styles.container}>
       {/* GLOBAL RESET to fix the white border issue */}
       <style>{`
         body { margin: 0; padding: 0; box-sizing: border-box; }
@@ -204,13 +238,12 @@ function App() {
             >
               Email Me
             </a>
-            <a
-              href="/Ashwin_Torphe_Resume.pdf"
-              download
+            <button
+              onClick={handleDownloadPDF}
               style={{ ...styles.btn, ...styles.btnSecondary }}
             >
-              Resume
-            </a>
+              Download PDF
+            </button>
 
             <a
               href="https://github.com/recontour"

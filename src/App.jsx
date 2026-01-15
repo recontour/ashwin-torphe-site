@@ -10,28 +10,60 @@ function App() {
     const element = containerRef.current;
     if (!element) return;
 
+    // Create a clone to force desktop layout
+    const clone = element.cloneNode(true);
+    
+    // Force desktop styling on clone
+    clone.style.width = "1200px"; // Wide enough for desktop layout
+    clone.style.position = "absolute";
+    clone.style.top = "-10000px";
+    clone.style.left = "0";
+    clone.style.zIndex = "-1";
+    clone.style.background = "#0f172a"; // Ensure background color is preserved
+    
+    document.body.appendChild(clone);
+
     try {
-      const canvas = await html2canvas(element, {
+      const canvas = await html2canvas(clone, {
         scale: 2,
         useCORS: true,
         logging: false,
-        windowWidth: element.scrollWidth,
-        windowHeight: element.scrollHeight
+        windowWidth: 1200 // Simulate desktop window width
       });
+
+      // Remove clone
+      document.body.removeChild(clone);
 
       const imgData = canvas.toDataURL("image/png");
+      const pdf = new jsPDF("p", "mm", "a4");
       
-      // Initialize jsPDF with custom dimensions based on the canvas
-      const pdf = new jsPDF({
-        orientation: "portrait",
-        unit: "px",
-        format: [canvas.width, canvas.height]
-      });
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = pdf.internal.pageSize.getHeight();
+      
+      const imgProps = pdf.getImageProperties(imgData);
+      const imgHeight = (imgProps.height * pdfWidth) / imgProps.width;
+      
+      let heightLeft = imgHeight;
+      let position = 0;
 
-      pdf.addImage(imgData, "PNG", 0, 0, canvas.width, canvas.height);
+      // Add first page
+      pdf.addImage(imgData, "PNG", 0, position, pdfWidth, imgHeight);
+      heightLeft -= pdfHeight;
+
+      // Add additional pages if content overflows
+      while (heightLeft > 0) {
+        position -= pdfHeight;
+        pdf.addPage();
+        pdf.addImage(imgData, "PNG", 0, position, pdfWidth, imgHeight);
+        heightLeft -= pdfHeight;
+      }
+
       pdf.save("Ashwin_Torphe_Resume.pdf");
     } catch (err) {
       console.error("PDF generation failed", err);
+      if (document.body.contains(clone)) {
+        document.body.removeChild(clone);
+      }
     }
   };
 

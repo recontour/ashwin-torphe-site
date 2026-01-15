@@ -43,6 +43,19 @@ function App() {
 
   const experiences = [
     {
+      title: "Director",
+      company: "ApexByte.co",
+      period: "Oct 2024 – Present",
+      location: "Bengaluru – Karnataka",
+      points: [
+        "Spearhead strategic operations for a boutique software consultancy, bridging the gap between business goals and engineering execution.",
+        "Lead technical decision-making, defining technology stacks and cloud infrastructure strategies to minimize technical debt and maximize scalability.",
+        "Cultivate client partnerships, managing stakeholder expectations and delivering measurable value through tailored digital products.",
+        "Mentor and manage development teams, fostering a culture of code quality, agile efficiency, and innovation.",
+      ],
+    },
+
+    {
       title: "Project Manager",
       company: "ADSMN",
       period: "Dec 2023 – Oct 2024",

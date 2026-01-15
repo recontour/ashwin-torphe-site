@@ -2,78 +2,31 @@ import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import React, { useState, useEffect, useRef } from "react";
 
-
-const PageGuides = ({ containerRef }) => {
-  const [guides, setGuides] = useState([]);
+function App() {
+  const containerRef = useRef(null);
+  const [isDownloading, setIsDownloading] = useState(false);
+  const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
-    const updateGuides = () => {
-        if (!containerRef.current) return;
-        const width = containerRef.current.offsetWidth;
-        const totalHeight = containerRef.current.scrollHeight;
-        const a4Ratio = 297 / 210;
-        const pageHeight = width * a4Ratio;
-        
-        const count = Math.floor(totalHeight / pageHeight);
-        const newGuides = [];
-        for (let i = 1; i <= count; i++) {
-            newGuides.push(i * pageHeight);
-        }
-        setGuides(newGuides);
-    };
-    
-    // Initial calculation and listeners
-    setTimeout(updateGuides, 500); 
-    window.addEventListener("resize", updateGuides);
-    return () => window.removeEventListener("resize", updateGuides);
-  }, [containerRef]);
+    const handleScroll = () => setScrollY(window.scrollY);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
-  return (
-    <>
-      {guides.map((top, i) => (
-         <div key={i} style={{
-             position: "absolute",
-             top: top + "px",
-             left: 0,
-             right: 0,
-             borderTop: "2px dashed #ff0000",
-             zIndex: 9999,
-             pointerEvents: "none",
-             display: "flex",
-             justifyContent: "flex-end"
-         }}>
-            <span style={{ background: "#ff0000", color: "white", fontSize: "12px", padding: "2px 6px" }}>Page Break</span>
-         </div>
-      ))}
-    </>
-  );
-};
-
-
-function App() {
-  const isPreview = new URLSearchParams(typeof window !== "undefined" ? window.location.search : "").get("preview") === "true";
-
-  const containerRef = useRef(null);
-
-  
-  const handlePreview = () => {
-    window.open("?preview=true", "_blank");
-  };
-    
-const handleDownloadPDF = async () => {
+  const handleDownloadPDF = async () => {
     const element = containerRef.current;
     if (!element) return;
+    
+    setIsDownloading(true);
 
-    // Create a clone to force desktop layout
     const clone = element.cloneNode(true);
     
-    // Force desktop styling on clone
-    clone.style.width = "1200px"; // Wide enough for desktop layout
+    clone.style.width = "1200px";
     clone.style.position = "absolute";
     clone.style.top = "-10000px";
     clone.style.left = "0";
     clone.style.zIndex = "-1";
-    clone.style.background = "#0f172a"; // Ensure background color is preserved
+    clone.style.background = "#0f172a";
     
     document.body.appendChild(clone);
 
@@ -82,13 +35,12 @@ const handleDownloadPDF = async () => {
         scale: 2,
         useCORS: true,
         logging: false,
-        windowWidth: 1200 // Simulate desktop window width
+        windowWidth: 1200
       });
 
-      // Remove clone
       document.body.removeChild(clone);
 
-      const imgData = canvas.toDataURL("image/png");
+      const imgData = canvas.toDataURL("image/jpeg", 0.7);
       const pdf = new jsPDF("p", "mm", "a4");
       
       const pdfWidth = pdf.internal.pageSize.getWidth();
@@ -100,15 +52,15 @@ const handleDownloadPDF = async () => {
       let heightLeft = imgHeight;
       let position = 0;
 
-      // Add first page
-      pdf.addImage(imgData, "PNG", 0, position, pdfWidth, imgHeight);
+      pdf.addImage(imgData, "JPEG", 0, position, pdfWidth, imgHeight);
       heightLeft -= pdfHeight;
 
-      // Add additional pages if content overflows
       while (heightLeft > 0) {
         position -= pdfHeight;
         pdf.addPage();
-        pdf.addImage(imgData, "PNG", 0, position, pdfWidth, imgHeight);
+        pdf.setFillColor(15, 23, 42);
+        pdf.rect(0, 0, pdfWidth, pdfHeight, "F");
+        pdf.addImage(imgData, "JPEG", 0, position, pdfWidth, imgHeight);
         heightLeft -= pdfHeight;
       }
 
@@ -118,16 +70,10 @@ const handleDownloadPDF = async () => {
       if (document.body.contains(clone)) {
         document.body.removeChild(clone);
       }
+    } finally {
+      setIsDownloading(false);
     }
   };
-
-  const [scrollY, setScrollY] = useState(0);
-
-  useEffect(() => {
-    const handleScroll = () => setScrollY(window.scrollY);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   const Icon = ({ path }) => (
     <svg
@@ -139,7 +85,7 @@ const handleDownloadPDF = async () => {
   );
 
   const skills = [
-        {
+    {
       name: "Google Cloud",
       path: "M19.35,10.04C18.67,6.59,15.64,4,12,4C9.11,4,6.6,5.64,5.35,8.04C2.34,8.36,0,10.91,0,14c0,3.31,2.69,6,6,6h13c2.76,0,5-2.24,5-5C24,12.36,21.95,10.22,19.35,10.04z",
     },
@@ -169,8 +115,8 @@ const handleDownloadPDF = async () => {
     {
       title: "Director",
       company: "ApexByte.co",
-      period: "Oct 2024 â€“ Present",
-      location: "Bengaluru â€“ Karnataka",
+      period: "Oct 2024 – Present",
+      location: "Bengaluru – Karnataka",
       points: [
         "Spearhead strategic operations for a boutique software consultancy, bridging the gap between business goals and engineering execution.",
         "Lead technical decision-making, defining technology stacks and cloud infrastructure strategies to minimize technical debt and maximize scalability.",
@@ -178,12 +124,11 @@ const handleDownloadPDF = async () => {
         "Mentor and manage development teams, fostering a culture of code quality, agile efficiency, and innovation.",
       ],
     },
-
     {
       title: "Project Manager",
       company: "ADSMN",
-      period: "Dec 2023 â€“ Oct 2024",
-      location: "Mumbai â€“ Maharashtra",
+      period: "Dec 2023 – Oct 2024",
+      location: "Mumbai – Maharashtra",
       points: [
         "Drove strategic alignment by overseeing client relationships, managing project estimations, and defining success criteria.",
         "Provided architectural guidance by selecting and validating optimal tech stacks (React, Azure) ensuring scalability.",
@@ -194,8 +139,8 @@ const handleDownloadPDF = async () => {
     {
       title: "Project Manager",
       company: "TIU Consulting",
-      period: "Sept 2021 â€“ Nov 2023",
-      location: "Nagpur â€“ Maharashtra",
+      period: "Sept 2021 – Nov 2023",
+      location: "Nagpur – Maharashtra",
       points: [
         "Managed a team of 8 developers, consistently delivering projects on time and within budget.",
         "Improved operational efficiency by monitoring daily workflows and coordinating efforts.",
@@ -206,8 +151,8 @@ const handleDownloadPDF = async () => {
     {
       title: "Project Manager",
       company: "Tipstat",
-      period: "May 2020 â€“ Aug 2021",
-      location: "Bengaluru â€“ Karnataka",
+      period: "May 2020 – Aug 2021",
+      location: "Bengaluru – Karnataka",
       points: [
         "Orchestrated seamless project delivery by coordinating cross-functional resources and vendors.",
         "Cultivated strong client relationships, acting as the primary bridge to manage expectations.",
@@ -218,8 +163,8 @@ const handleDownloadPDF = async () => {
     {
       title: "Project Manager",
       company: "Tyche Wellness",
-      period: "Sept 2018 â€“ April 2020",
-      location: "Bengaluru â€“ Karnataka",
+      period: "Sept 2018 – April 2020",
+      location: "Bengaluru – Karnataka",
       points: [
         "Led a cross-functional Agile team of 8 to deliver seamless web and mobile solutions.",
         "Owned the complete project lifecycle from feature development to bug resolution.",
@@ -229,8 +174,8 @@ const handleDownloadPDF = async () => {
     },
     {
       company: "Microsoft",
-      period: "April 2007 â€“ Dec 2017 (10 Years)",
-      location: "Bengaluru â€“ Karnataka",
+      period: "April 2007 – Dec 2017 (10 Years)",
+      location: "Bengaluru – Karnataka",
       isGrouped: true,
       intro:
         "Experience acquired through continuous professional growth and promotions across multiple key roles.",
@@ -259,7 +204,7 @@ const handleDownloadPDF = async () => {
           ],
         },
         {
-          title: "Operations Engineer â€“ Azure",
+          title: "Operations Engineer – Azure",
           points: [
             "Provided technical support to Microsoft Azure customers via phone and correspondence.",
             "Collaborated with DevOps to resolve customer-reported problems.",
@@ -278,8 +223,8 @@ const handleDownloadPDF = async () => {
     {
       title: "Customer Care Representative",
       company: "24/7 Customer Pvt Ltd",
-      period: "Dec 2005 â€“ April 2007",
-      location: "Bengaluru â€“ Karnataka",
+      period: "Dec 2005 – April 2007",
+      location: "Bengaluru – Karnataka",
       points: [
         "Provided technical support to First Data Merchant Services customers.",
         "Troubleshot credit/debit card machines and transaction queries.",
@@ -288,23 +233,25 @@ const handleDownloadPDF = async () => {
   ];
 
   return (
-    <div ref={containerRef} style={isPreview ? styles.pdfContainer : styles.container}>
-      {/* GLOBAL RESET to fix the white border issue */}
+    <div ref={containerRef} style={styles.container}>
       <style>{`
         body { margin: 0; padding: 0; box-sizing: border-box; }
         * { box-sizing: border-box; }
+        @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
       `}</style>
 
       <div
         style={{ ...styles.bgGradient, opacity: Math.min(scrollY / 500, 0.3) }}
       />
 
-      {/* Hero Section */}
-      <header style={isPreview ? styles.pdfHero : styles.hero}>
+      <header style={styles.hero}>
         <div style={styles.heroContent}>
           <div style={styles.nameContainer}>
             <h1 style={styles.name}>Ashwin Torphe</h1>
-            <p style={styles.tagline}>Project Leader â€¢ AI Expert</p>
+            <p style={styles.tagline}>Project Leader • AI Expert</p>
           </div>
 
           <div style={styles.contactRow}>
@@ -326,18 +273,25 @@ const handleDownloadPDF = async () => {
             </a>
             <button
               onClick={handleDownloadPDF}
-              style={{ ...styles.btn, ...styles.btnSecondary }}
+              disabled={isDownloading}
+              style={{ ...styles.btn, ...styles.btnSecondary, opacity: isDownloading ? 0.7 : 1, cursor: isDownloading ? "not-allowed" : "pointer" }}
             >
-              Download PDF
+              {isDownloading ? (
+                <>
+                  <span style={{
+                    display: "inline-block",
+                    width: "16px",
+                    height: "16px",
+                    border: "2px solid rgba(255,255,255,0.3)",
+                    borderTop: "2px solid white",
+                    borderRadius: "50%",
+                    marginRight: "8px",
+                    animation: "spin 1s linear infinite"
+                  }}/>
+                  Processing...
+                </>
+              ) : "Download PDF"}
             </button>
-            {!isPreview && (
-              <button
-                onClick={handlePreview}
-                style={{ ...styles.btn, ...styles.btnSecondary }}
-              >
-                Preview Layout
-              </button>
-            )}
 
             <a
               href="https://github.com/recontour"
@@ -359,9 +313,7 @@ const handleDownloadPDF = async () => {
         </div>
       </header>
 
-      {/* Main Content */}
-      <main style={isPreview ? styles.pdfMain : styles.main}>
-        {/* Summary Card */}
+      <main style={styles.main}>
         <section style={styles.card}>
           <h2 style={styles.sectionTitle}>About Me</h2>
           <p style={styles.summaryText}>
@@ -377,7 +329,6 @@ const handleDownloadPDF = async () => {
           </p>
         </section>
 
-        {/* Skills Section */}
         <section style={styles.card}>
           <h2 style={styles.sectionTitle}>Technical Skills</h2>
           <div style={styles.skillsGrid}>
@@ -392,7 +343,6 @@ const handleDownloadPDF = async () => {
           </div>
         </section>
 
-        {/* Experience Section */}
         <section style={styles.card}>
           <h2 style={styles.sectionTitle}>Experience</h2>
           <div style={styles.timeline}>
@@ -404,7 +354,7 @@ const handleDownloadPDF = async () => {
                     <div>
                       <h3 style={styles.expTitle}>{exp.company}</h3>
                       <p style={styles.expMeta}>
-                        {exp.period} â€¢ {exp.location}
+                        {exp.period} • {exp.location}
                       </p>
                       <p style={styles.expIntro}>{exp.intro}</p>
                       {exp.subRoles.map((role, rIdx) => (
@@ -427,7 +377,7 @@ const handleDownloadPDF = async () => {
                         <span style={styles.expCompany}>{exp.company}</span>
                       </h3>
                       <p style={styles.expMeta}>
-                        {exp.period} â€¢ {exp.location}
+                        {exp.period} • {exp.location}
                       </p>
                       <ul style={styles.bulletList}>
                         {exp.points.map((p, idx) => (
@@ -445,13 +395,11 @@ const handleDownloadPDF = async () => {
         </section>
       </main>
 
-      {/* Footer */}
       <footer style={styles.footer}>
         <p style={styles.footerText}>
-          Let's build the future â€” one sprint at a time.
+          Let's build the future – one sprint at a time.
         </p>
       </footer>
-      {isPreview && <PageGuides containerRef={containerRef} />}
     </div>
   );
 }
@@ -481,7 +429,7 @@ const styles = {
     display: "flex",
     alignItems: "center",
     justifyContent: "flex-start",
-    padding: "2rem", // Hero padding preserved
+    padding: "2rem",
     position: "relative",
     zIndex: 1,
   },
@@ -557,7 +505,7 @@ const styles = {
   main: {
     maxWidth: "900px",
     margin: "0 auto",
-    padding: 8, // Removed padding completely as requested
+    padding: 8,
     position: "relative",
     zIndex: 1,
   },
@@ -566,7 +514,6 @@ const styles = {
     borderRadius: "12px",
     padding: "1.5rem",
     marginBottom: "2rem",
-    // No border
   },
   sectionTitle: {
     fontSize: "1.25rem",
@@ -618,7 +565,7 @@ const styles = {
   },
   timelineItem: {
     position: "relative",
-    marginBottom: "2rem",
+    marginBottom: "4.5rem",
   },
   timelineDot: {
     position: "absolute",
@@ -686,29 +633,6 @@ const styles = {
   footerText: {
     color: "#64748b",
     fontSize: "0.8rem",
-  }, pdfContainer: {
-    minHeight: "100vh",
-    background: "#0f172a",
-    color: "#e2e8f0",
-    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-    width: "100%",
-    padding: "0",
-    zoom: "1.1",
-  },
-  pdfHero: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "flex-start",
-    padding: "40px 60px 20px 60px",
-    position: "relative",
-    zIndex: 1,
-  },
-  pdfMain: {
-    maxWidth: "100%",
-    margin: "0",
-    padding: "20px 60px 60px 60px",
-    position: "relative",
-    zIndex: 1,
   },
 };
 

@@ -2,6 +2,54 @@ import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import React, { useState, useEffect, useRef } from "react";
 
+
+const PageGuides = ({ containerRef }) => {
+  const [guides, setGuides] = useState([]);
+
+  useEffect(() => {
+    const updateGuides = () => {
+        if (!containerRef.current) return;
+        const width = containerRef.current.offsetWidth;
+        const totalHeight = containerRef.current.scrollHeight;
+        const a4Ratio = 297 / 210;
+        const pageHeight = width * a4Ratio;
+        
+        const count = Math.floor(totalHeight / pageHeight);
+        const newGuides = [];
+        for (let i = 1; i <= count; i++) {
+            newGuides.push(i * pageHeight);
+        }
+        setGuides(newGuides);
+    };
+    
+    // Initial calculation and listeners
+    setTimeout(updateGuides, 500); 
+    window.addEventListener("resize", updateGuides);
+    return () => window.removeEventListener("resize", updateGuides);
+  }, [containerRef]);
+
+  return (
+    <>
+      {guides.map((top, i) => (
+         <div key={i} style={{
+             position: "absolute",
+             top: top + "px",
+             left: 0,
+             right: 0,
+             borderTop: "2px dashed #ff0000",
+             zIndex: 9999,
+             pointerEvents: "none",
+             display: "flex",
+             justifyContent: "flex-end"
+         }}>
+            <span style={{ background: "#ff0000", color: "white", fontSize: "12px", padding: "2px 6px" }}>Page Break</span>
+         </div>
+      ))}
+    </>
+  );
+};
+
+
 function App() {
   const isPreview = new URLSearchParams(typeof window !== "undefined" ? window.location.search : "").get("preview") === "true";
 
@@ -403,6 +451,7 @@ const handleDownloadPDF = async () => {
           Let's build the future — one sprint at a time.
         </p>
       </footer>
+      {isPreview && <PageGuides containerRef={containerRef} />}
     </div>
   );
 }

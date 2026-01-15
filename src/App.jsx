@@ -3,10 +3,16 @@ import jsPDF from 'jspdf';
 import React, { useState, useEffect, useRef } from "react";
 
 function App() {
+  const isPreview = new URLSearchParams(typeof window !== "undefined" ? window.location.search : "").get("preview") === "true";
 
   const containerRef = useRef(null);
 
-  const handleDownloadPDF = async () => {
+  
+  const handlePreview = () => {
+    window.open("?preview=true", "_blank");
+  };
+    
+const handleDownloadPDF = async () => {
     const element = containerRef.current;
     if (!element) return;
 
@@ -234,7 +240,7 @@ function App() {
   ];
 
   return (
-    <div ref={containerRef} style={styles.container}>
+    <div ref={containerRef} style={isPreview ? styles.pdfContainer : styles.container}>
       {/* GLOBAL RESET to fix the white border issue */}
       <style>{`
         body { margin: 0; padding: 0; box-sizing: border-box; }
@@ -246,7 +252,7 @@ function App() {
       />
 
       {/* Hero Section */}
-      <header style={styles.hero}>
+      <header style={isPreview ? styles.pdfHero : styles.hero}>
         <div style={styles.heroContent}>
           <div style={styles.nameContainer}>
             <h1 style={styles.name}>Ashwin Torphe</h1>
@@ -276,6 +282,14 @@ function App() {
             >
               Download PDF
             </button>
+            {!isPreview && (
+              <button
+                onClick={handlePreview}
+                style={{ ...styles.btn, ...styles.btnSecondary }}
+              >
+                Preview Layout
+              </button>
+            )}
 
             <a
               href="https://github.com/recontour"
@@ -298,7 +312,7 @@ function App() {
       </header>
 
       {/* Main Content */}
-      <main style={styles.main}>
+      <main style={isPreview ? styles.pdfMain : styles.main}>
         {/* Summary Card */}
         <section style={styles.card}>
           <h2 style={styles.sectionTitle}>About Me</h2>
@@ -623,6 +637,29 @@ const styles = {
   footerText: {
     color: "#64748b",
     fontSize: "0.8rem",
+  }, pdfContainer: {
+    minHeight: "100vh",
+    background: "#0f172a",
+    color: "#e2e8f0",
+    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+    width: "100%",
+    padding: "0",
+    zoom: "1.1",
+  },
+  pdfHero: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "flex-start",
+    padding: "40px 60px 20px 60px",
+    position: "relative",
+    zIndex: 1,
+  },
+  pdfMain: {
+    maxWidth: "100%",
+    margin: "0",
+    padding: "20px 60px 60px 60px",
+    position: "relative",
+    zIndex: 1,
   },
 };
 

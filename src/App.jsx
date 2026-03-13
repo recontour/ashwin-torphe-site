@@ -1,4 +1,4 @@
-import html2canvas from 'html2canvas';
+ï»¿import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import React, { useState, useEffect, useRef } from "react";
 
@@ -143,8 +143,8 @@ function App() {
     {
       title: "Director",
       company: "ApexByte.co",
-      period: "Oct 2024 – Present",
-      location: "Bengaluru – Karnataka",
+      period: "Oct 2024 â€“ Present",
+      location: "Bengaluru â€“ Karnataka",
       points: [
         "Spearhead strategic operations for a boutique software consultancy, bridging the gap between business goals and engineering execution.",
         "Lead technical decision-making, defining technology stacks and cloud infrastructure strategies to minimize technical debt and maximize scalability.",
@@ -155,8 +155,8 @@ function App() {
     {
       title: "Project Manager",
       company: "ADSMN",
-      period: "Dec 2023 – Oct 2024",
-      location: "Mumbai – Maharashtra",
+      period: "Dec 2023 â€“ Oct 2024",
+      location: "Mumbai â€“ Maharashtra",
       points: [
         "Drove strategic alignment by overseeing client relationships, managing project estimations, and defining success criteria.",
         "Provided architectural guidance by selecting and validating optimal tech stacks (React, Azure) ensuring scalability.",
@@ -167,8 +167,8 @@ function App() {
     {
       title: "Project Manager",
       company: "TIU Consulting",
-      period: "Sept 2021 – Nov 2023",
-      location: "Nagpur – Maharashtra",
+      period: "Sept 2021 â€“ Nov 2023",
+      location: "Nagpur â€“ Maharashtra",
       points: [
         "Managed a team of 8 developers, consistently delivering projects on time and within budget.",
         "Improved operational efficiency by monitoring daily workflows and coordinating efforts.",
@@ -179,8 +179,8 @@ function App() {
     {
       title: "Project Manager",
       company: "Tipstat",
-      period: "May 2020 – Aug 2021",
-      location: "Bengaluru – Karnataka",
+      period: "May 2020 â€“ Aug 2021",
+      location: "Bengaluru â€“ Karnataka",
       points: [
         "Orchestrated seamless project delivery by coordinating cross-functional resources and vendors.",
         "Cultivated strong client relationships, acting as the primary bridge to manage expectations.",
@@ -191,8 +191,8 @@ function App() {
     {
       title: "Project Manager",
       company: "Tyche Wellness",
-      period: "Sept 2018 – April 2020",
-      location: "Bengaluru – Karnataka",
+      period: "Sept 2018 â€“ April 2020",
+      location: "Bengaluru â€“ Karnataka",
       points: [
         "Led a cross-functional Agile team of 8 to deliver seamless web and mobile solutions.",
         "Owned the complete project lifecycle from feature development to bug resolution.",
@@ -202,8 +202,8 @@ function App() {
     },
     {
       company: "Microsoft",
-      period: "April 2007 – Dec 2017 (10 Years)",
-      location: "Bengaluru – Karnataka",
+      period: "April 2007 â€“ Dec 2017 (10 Years)",
+      location: "Bengaluru â€“ Karnataka",
       isGrouped: true,
       intro:
         "Experience acquired through continuous professional growth and promotions across multiple key roles.",
@@ -232,7 +232,7 @@ function App() {
           ],
         },
         {
-          title: "Operations Engineer – Azure",
+          title: "Operations Engineer â€“ Azure",
           points: [
             "Provided technical support to Microsoft Azure customers via phone and correspondence.",
             "Collaborated with DevOps to resolve customer-reported problems.",
@@ -251,8 +251,8 @@ function App() {
     {
       title: "Customer Care Representative",
       company: "24/7 Customer Pvt Ltd",
-      period: "Dec 2005 – April 2007",
-      location: "Bengaluru – Karnataka",
+      period: "Dec 2005 â€“ April 2007",
+      location: "Bengaluru â€“ Karnataka",
       points: [
         "Provided technical support to First Data Merchant Services customers.",
         "Troubleshot credit/debit card machines and transaction queries.",
@@ -279,7 +279,7 @@ function App() {
         <div style={styles.heroContent}>
           <div style={styles.nameContainer}>
             <h1 style={styles.name}>Ashwin Torphe</h1>
-            <p style={styles.tagline}>Project Leader • AI Expert</p>
+            <p style={styles.tagline}>Project Leader â€¢ AI Expert</p>
           </div>
 
           <div style={styles.contactRow}>
@@ -386,7 +386,7 @@ function App() {
                     <div>
                       <h3 style={styles.expTitle}>{exp.company}</h3>
                       <p style={styles.expMeta}>
-                        {exp.period} • {exp.location}
+                        {exp.period} â€¢ {exp.location}
                       </p>
                       <p style={styles.expIntro}>{exp.intro}</p>
                       {exp.subRoles.map((role, rIdx) => (
@@ -409,7 +409,7 @@ function App() {
                         <span style={styles.expCompany}>{exp.company}</span>
                       </h3>
                       <p style={styles.expMeta}>
-                        {exp.period} • {exp.location}
+                        {exp.period} â€¢ {exp.location}
                       </p>
                       <ul style={styles.bulletList}>
                         {exp.points.map((p, idx) => (
@@ -429,7 +429,7 @@ function App() {
 
       <footer style={styles.footer}>
         <p style={styles.footerText}>
-          Let's build the future – one sprint at a time.
+          Let's build the future â€“ one sprint at a time.
         </p>
       </footer>
     </div>
@@ -669,3 +669,4 @@ const styles = {
 };
 
 export default App;
+

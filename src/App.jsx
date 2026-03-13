@@ -30,6 +30,12 @@ function App() {
     
     document.body.appendChild(clone);
 
+    // Hide buttons in PDF
+    const btnGroupElement = clone.querySelector("#btn-group-section");
+    if (btnGroupElement) {
+        btnGroupElement.style.display = "none";
+    }
+
     // Enforce page break logic
     const tipstatElement = clone.querySelector("#tipstat-section");
     if (tipstatElement) {
@@ -292,7 +298,7 @@ function App() {
             </a>
           </div>
 
-          <div style={styles.btnGroup}>
+          <div id="btn-group-section" style={styles.btnGroup}>
             <a
               href="mailto:ashwin.torphe@gmail.com"
               style={{ ...styles.btn, ...styles.btnPrimary }}
